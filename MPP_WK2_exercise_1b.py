@@ -1,22 +1,19 @@
-#MPP_WK2_exercise_1.py
-# adding docstrings to explain each function
-
+#MPP_WK2_exercise_1b.py
+# adding docstrings to explain each function (I did this twice in error but different approach)
 
 import csv
 
-""" 
-Import csv library from Python
-
-"""
-
 def get_maximum_value(list):
-
     """ 
         Given a list of numbers as input this function will return the numerical maximum.
-        function uses for loop to iterate through the list
         :param list: the list of numbers given as input
         :return: the numerical maximum of the list
-    """
+    """    
+    # simple search for l with maximum number in list by iterating through the list
+    # if l is grreater than l in memory
+    # new l replaces old l until end of list
+    # l is numerical maximum in list
+    # note list doesn't have to be sorted like for median
     maximum = list[0]
     for l in list:
         if maximum > l:
@@ -24,14 +21,16 @@ def get_maximum_value(list):
     return maximum
 
 def get_minimum_value(list):
-
     """ 
-        Given a list of numbers as input this function will return the numerical minimum.
-        function uses for loop to iterate through the list
+        Given a list of numbers as input this function will return the numerical average.
         :param list: the list of numbers given as input
         :return: the numerical minimum of the list
     """
-
+    # simple search for l with minimum value in list by iterating through the list
+    # if l is less than l in memory
+    # new l replaces old l until end of list
+    # l is numerical minimum in list
+    # note list doesn't have to be sorted like for median
     minimum = list[0]
     for l in list:
         if minimum < l:
@@ -40,46 +39,52 @@ def get_minimum_value(list):
 def get_average(list):
     """ 
         Given a list of numbers as input this function will return the numerical average.
-        function uses for loop to iterate through the list and numerically add all the elements
         :param list: the list of numbers given as input
         :return: the numerical average of the list
     """
     total = 0
     for l in list:
         total += l
-        
+     # simple average by summing the values in the list iteratively using +=1
+     # then dividing by the number of elelemts i.e (len) of list
+     # l is numerical average/mean in list
+    # note list doesn't have to be sorted like for median  
     average = total / len(list)
     return average
 
 def get_median_value(list):
-
     """ 
-        Given a list of SORTED numbers as input this function will return the median.
-        Median = the element at midpoint in the list hence it needs first to be sorted
-        Bubble_sort (separate funcvtion) called to do this within the get_median_value function
-
-        :param list: the list of ,unsorted' numbers given as input
-        :return: the median value of the list
+        Given a list of numbers as input this function will return the numerical average.
+        :param list: the list of numbers given as input
+        :return: the numerical average of the list
     """
+    # make a copy of list as 'list 1' that will become the sorted version of 'list'
     list1 = list.copy()
+    #use bubble-sort function below to sort the lsit smallest to largest
     bubble_sort(list1)
+    # median is the middle value
+    # inside brackets is the index number
+    # to get the median index divide the length of list1 by 2. convert to integer
+    # extract the list1 value at this point as vsriable 'median'
     median = list1[int(len(list1)/2)]
     return median
     
 def bubble_sort(list1):
 
     """ 
-        Bubble_Sort
-        Sort a randomised list into order smallest to largest
+        Given an unsorted list list input this function will return the sorted list 
+        using recursive bubble-sort algorithm.
+
+        :param list: the list of numbers given as input
+        :return: the sorthed list smallest to largets numerically
     """
+
     for i in range(0,len(list1)-1):  
         for j in range(len(list1)-1):  
             if(list1[j]>list1[j+1]):  
                 temp = list1[j]  
                 list1[j] = list1[j+1]  
                 list1[j+1] = temp  
-
-
     
 def get_mode(list):
     highest_freq = 0
@@ -94,25 +99,15 @@ def get_mode(list):
             highest_freq = frequency
     return mode
 
-    """ 
-        Given a list of numbers as input this function will return the numerical mode.
-        function uses for loop to iterate through the list
-        1st if statement:  if two elements the same value i.e. score = score2 then frequency increased by 1
-        2nd if statement: if frequency >highest frequency then the mode = the numerical value of that element
-        return the element with highest frequency as mode
-        :param list: the list of numbers given as input
-        :return: the numerical mode of the list
-    """
-
-
 def read_scores_from_csv(filename):
 
     """ 
-        create an empty list 
-        read data from csv using DictReader into var csvFile
-        for specific line 'SScore' form csv extract values 'score'
-        append output to empty list 
-    """
+        Given an csv file (filename) the function extracts the values of 'score'
+        extract them to a newly created list 'scores'
+
+        :param list: the list of elements in the csv undser 'scores'
+        :return: the new 'scores' list
+    """ 
     scores = []
     with open(filename, mode ='r') as file:   
         csvFile = csv.DictReader(file)
@@ -121,6 +116,10 @@ def read_scores_from_csv(filename):
             score = int(lines["Score"])
             scores.append(score)    
     return scores
+    
+    # main program which incorporates the above functions below
+    # as they are separate functions they can be in any order or 
+    # called from a separate program (see MPP_WK2_exercise_d.py)
     
 if __name__ == "__main__":
 
